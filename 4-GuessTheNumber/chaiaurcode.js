@@ -16,16 +16,26 @@ let playGame = true;
 
 subt.addEventListener("click", function (e) {
   e.preventDefault();
-  if (!playGame) {
+  if (guessField.value == answer) {
+    lowOrHi.innerHTML = `<h6 style="color: green;">You guessed it right!</h6>`;
     return;
   }
+  if (numOfGuesses == 0) {
+    lowOrHi.innerHTML = `<h6 style="color: white;">Game over!</h6>`;
+    return;
+  }
+  if (guessField.value !== answer) {
+    numOfGuesses--;
+    lastResult.innerHTML = numOfGuesses;
+    prevGuesses.push(guessField.value);
+    guesses.innerHTML = prevGuesses;
+    lowOrHi.innerHTML = `<h6 style="color: red;">Wrong guess!</h6>`;
+  }
+
   if (!(guessField.value > -1 && 101 > guessField.value)) {
-    lowOrHi.innerHTML = "please put vaue a valid value";
+    lowOrHi.innerHTML = `<h6 style="color: yellow;">Please enter a valid number</h6>`;
     return;
   }
-  numOfGuesses--;
-  lastResult.innerHTML = numOfGuesses;
-  prevGuesses.push(guessField.value);
-  guesses.innerHTML = prevGuesses;
+
   console.log(answer);
 });
